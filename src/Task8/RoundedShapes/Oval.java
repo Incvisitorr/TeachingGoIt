@@ -1,4 +1,4 @@
-package RoundedShapes;
+package Task8.RoundedShapes;
 
 public class Oval extends RoundedShapes {
     private double radiusSide;

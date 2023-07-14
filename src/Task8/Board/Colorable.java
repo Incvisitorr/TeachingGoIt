@@ -1,4 +1,4 @@
-package Board;
+package Task8.Board;
 
 interface Colorable {
     void setColor(String color);

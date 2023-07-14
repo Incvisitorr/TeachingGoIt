@@ -1,7 +1,7 @@
-package Board;
+package Task8.Board;
 
-import RoundedShapes.*;
-import SharpShapes.*;
+import Task8.RoundedShapes.*;
+import Task8.SharpShapes.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

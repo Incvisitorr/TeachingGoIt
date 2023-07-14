@@ -1,4 +1,4 @@
-package RoundedShapes;
+package Task8.RoundedShapes;
 
 public class Circle extends RoundedShapes {
     public Circle(String name, String color, double radius) {

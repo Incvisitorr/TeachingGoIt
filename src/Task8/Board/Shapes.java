@@ -1,4 +1,4 @@
-package Board;
+package Task8.Board;
 
 public abstract class Shapes implements Colorable, Scale {
     protected String name;

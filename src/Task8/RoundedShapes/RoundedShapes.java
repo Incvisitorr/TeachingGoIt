@@ -1,5 +1,5 @@
-package RoundedShapes;
-import Board.Shapes;
+package Task8.RoundedShapes;
+import Task8.Board.Shapes;
 public abstract class RoundedShapes extends Shapes implements RoundActions {
     protected double radius;
 

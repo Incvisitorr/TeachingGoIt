@@ -1,9 +1,4 @@
-package SharpShapes;
-
-import Board.Shapes;
-
-
-
+package Task8.SharpShapes;
 
 
 public class Quad extends SharpShapes {

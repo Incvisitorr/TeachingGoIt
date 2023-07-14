@@ -1,6 +1,6 @@
-package SharpShapes;
+package Task8.SharpShapes;
 
-import Board.Shapes;
+import Task8.Board.Shapes;
 
 abstract class SharpShapes extends Shapes implements SharpActions {
     protected double sideX;

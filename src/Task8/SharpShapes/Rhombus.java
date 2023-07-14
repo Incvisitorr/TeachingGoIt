@@ -1,4 +1,4 @@
-package SharpShapes;
+package Task8.SharpShapes;
 
 public class Rhombus extends SharpShapes {
     private double corner;
