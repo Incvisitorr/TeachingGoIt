@@ -1,0 +1,6 @@
+name age
+alice 21
+ryan 30
+nick 15
+sasha 30
+maria 10
