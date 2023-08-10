@@ -3,28 +3,29 @@ package Task10;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserMaker {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         File base = new File("./src/Task10/SourceFiles");
         File source2 = new File(base, "SourceForTask2.txt");
-        File jsonFile = new File(base, "user.json");
+        //File jsonFile = new File(base, "user.json");
         List<User> usersList = new ArrayList<>();
 
-        makeObjects(source2,usersList);
+        makeObjectsToJson(source2,usersList);
 
         Gson gsonBuilder=new GsonBuilder().setPrettyPrinting().create();
-        String json;
-        for(User user: usersList){
-            json= gsonBuilder.toJson(user);
-            fillContents(jsonFile,json);
-            System.out.println(json);
-        }
+        String jsonString= gsonBuilder.toJson(usersList);
+        Files.write(Paths.get("D:\\Teaching\\Java\\!!GoIT\\PROGRAMS\\src\\Task10\\SourceFiles\\user.json"),
+                jsonString.getBytes(), StandardOpenOption.CREATE);
+
 
     }
-    static void makeObjects(File source2,List<User> usersList){
+    static void makeObjectsToJson(File source2,List<User> userList){
         BufferedReader reader = null;
         String line = "";
         try {
@@ -37,7 +38,7 @@ public class UserMaker {
             while ((line = reader.readLine()) != null && !line.isEmpty()) {
                 String[] lineContent = line.split(" ");
                 try{
-                    usersList.add(new User(lineContent));
+                    userList.add(new User(lineContent));
                 }catch (NumberFormatException nfe){
                     System.out.println("Couldn't parse entry. Continue.");
                 }
@@ -47,13 +48,6 @@ public class UserMaker {
         }
     }
 
-    static void fillContents(File file, String content) {
-        try (FileWriter writer = new FileWriter(file,true)) {
-            writer.write(content+","+"\n");
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-    }
     static class User {
         private String name;
         private int age;
@@ -87,7 +81,4 @@ public class UserMaker {
                     '}';
         }
     }
-
-
-
 }
