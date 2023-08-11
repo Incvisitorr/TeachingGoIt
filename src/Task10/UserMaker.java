@@ -2,28 +2,25 @@ package Task10;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class UserMaker {
     public static void main(String[] args) throws IOException {
         File base = new File("./src/Task10/SourceFiles");
         File source2 = new File(base, "SourceForTask2.txt");
-        //File jsonFile = new File(base, "user.json");
+        String fileName="D:\\Teaching\\Java\\!!GoIT\\PROGRAMS\\src\\Task10\\SourceFiles\\SourceForTask2.txt";
+        String adressOutput = "D:\\Teaching\\Java\\!!GoIT\\PROGRAMS\\src\\Task10\\SourceFiles\\user.json";
         List<User> usersList = new ArrayList<>();
 
         makeObjectsToJson(source2,usersList);
-
-        Gson gsonBuilder=new GsonBuilder().setPrettyPrinting().create();
-        String jsonString= gsonBuilder.toJson(usersList);
-        Files.write(Paths.get("D:\\Teaching\\Java\\!!GoIT\\PROGRAMS\\src\\Task10\\SourceFiles\\user.json"),
-                jsonString.getBytes(), StandardOpenOption.CREATE);
-
-
+        parseObjToJson(usersList,adressOutput);
     }
     static void makeObjectsToJson(File source2,List<User> userList){
         BufferedReader reader = null;
@@ -48,14 +45,36 @@ public class UserMaker {
         }
     }
 
-    static class User {
-        private String name;
-        private int age;
+    static User[] deserialize(String sourceJson){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        User[] userArray = gson.fromJson(sourceJson, User[].class);
+        return userArray;
+    }
+    static void parseObjToJson(List<User> userList, String adress) throws IOException {
+        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+        String jsonString = gsonBuilder.toJson(userList);
+        FileWriter fw = new FileWriter(adress);
+        fw.write(jsonString);
+        fw.close();
+    }
 
-        public User(String[] content) {
-            this.name = content[0];
-            this.age = Integer.parseInt(content[1]);
+    static class User {
+        @SerializedName("name")
+        private String name;
+        @SerializedName("age")
+        private String age;
+
+        public User() {
         }
+
+        public User(String[] data) {
+            this.name = data[0];
+            this.age = data[1];
+        }
+//        public User(String[] content) {
+//            this.name = content[0];
+//            this.age = Integer.parseInt(content[1]);
+//        }
 
         public String getName() {
             return name;
@@ -65,11 +84,11 @@ public class UserMaker {
             this.name = name;
         }
 
-        public int getAge() {
+        public String getAge() {
             return age;
         }
 
-        public void setAge(int age) {
+        public void setAge(String age) {
             this.age = age;
         }
 
