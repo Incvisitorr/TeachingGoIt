@@ -1,10 +1,10 @@
 package ua.http;
 
-public class User {
+class User {
     private int id;
     private String name;
     private String email;
-    private Adress adress;
+    private Address address;
     private String phone;
     private String website;
     private Company company;
@@ -12,174 +12,90 @@ public class User {
     public User() {
     }
 
-    public User(int id, String name, String email, String phone, String website) {
+    public User(int id, String name, String email, Address address, String phone, String website, Company company) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.adress = new Adress();
+        this.address = address;
         this.phone = phone;
         this.website = website;
-        this.company = new Company();
+        this.company = company;
     }
-
-    class Adress {
-        Geo geo;
-        String street;
-        String suite;
-        String city;
-        String zipcode;
-        public Adress() {
-        }
-        public Adress(String street, String suite, String city, String zipcode) {
-            this.geo = new Geo();
-            this.street = street;
-            this.suite = suite;
-            this.city = city;
-            this.zipcode = zipcode;
-        }
-
-        public String getStreet() {
-            return street;
-        }
-
-        public void setStreet(String street) {
-            this.street = street;
-        }
-
-        public String getSuite() {
-            return suite;
-        }
-
-        public void setSuite(String suite) {
-            this.suite = suite;
-        }
-
-        public String getCity() {
-            return city;
-        }
-
-        public void setCity(String city) {
-            this.city = city;
-        }
-
-        public String getZipcode() {
-            return zipcode;
-        }
-
-        public void setZipcode(String zipcode) {
-            this.zipcode = zipcode;
-        }
-
-        class Geo {
-            private float lat;
-            private float lng;
-            public Geo() {
-            }
-            public Geo(float lat, float lng) {
-                this.lat = lat;
-                this.lng = lng;
-            }
-
-            public float getLat() {
-                return lat;
-            }
-
-            public void setLat(float lat) {
-                this.lat = lat;
-            }
-
-            public float getLng() {
-                return lng;
-            }
-
-            public void setLng(float lng) {
-                this.lng = lng;
-            }
-
-            @Override
-            public String toString() {
-                return "Geo{" +
-                        "lat=" + lat +
-                        ", lng=" + lng +
-                        '}';
-            }
-        }
-
-        @Override
-        public String toString() {
-            return "Adress{" +
-                    "street='" + street + '\'' +
-                    ", suite='" + suite + '\'' +
-                    ", city='" + city + '\'' +
-                    ", zipcode='" + zipcode + '\'' +
-                    ", geo=" + geo.toString() +
-                    '}';
-        }
-    }
-
-    class Company {
-        String name;
-        String catchPhrase;
-        String bs;
-
-        public Company() {
-        }
-
-        public Company(String name, String catchPhrase, String bs) {
-            this.name = name;
-            this.catchPhrase = catchPhrase;
-            this.bs = bs;
-        }
-
-        @Override
-        public String toString() {
-            return "Company{" +
-                    "name='" + name + '\'' +
-                    ", catchPhrase='" + catchPhrase + '\'' +
-                    ", bs='" + bs + '\'' +
-                    '}';
-        }
-    }
-
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public Address getAddress() {
+        return address;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getWebsite() {
         return website;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (getId() != user.getId()) return false;
+        if (getName() != null ? !getName().equals(user.getName()) : user.getName() != null) return false;
+        if (getEmail() != null ? !getEmail().equals(user.getEmail()) : user.getEmail() != null) return false;
+        if (getAddress() != null ? !getAddress().equals(user.getAddress()) : user.getAddress() != null) return false;
+        if (getPhone() != null ? !getPhone().equals(user.getPhone()) : user.getPhone() != null) return false;
+        if (getWebsite() != null ? !getWebsite().equals(user.getWebsite()) : user.getWebsite() != null) return false;
+        return getCompany() != null ? getCompany().equals(user.getCompany()) : user.getCompany() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId();
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        result = 31 * result + (getAddress() != null ? getAddress().hashCode() : 0);
+        result = 31 * result + (getPhone() != null ? getPhone().hashCode() : 0);
+        result = 31 * result + (getWebsite() != null ? getWebsite().hashCode() : 0);
+        result = 31 * result + (getCompany() != null ? getCompany().hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -188,7 +104,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", adress=" + adress.toString() +
+                ", adress=" + address +
                 ", phone='" + phone + '\'' +
                 ", website='" + website + '\'' +
                 ", company=" + company +
