@@ -20,7 +20,43 @@ public class HttpUtil {
         final HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         final User user = GSON.fromJson(response.body(), User.class);
         return user;
+    }
 
+    public static String sendGetComments(URI uri) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .GET()
+                .build();
+        final HttpResponse<String> responseComments = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+        return responseComments.body();
+    }
+
+    public static String sendGetByName(URI uri) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .GET()
+                .build();
+        final HttpResponse<String> responseByName = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+        return responseByName.body();
+    }
+
+    public static String sendGetById(URI uri) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .GET()
+                .build();
+        final HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+        //final User user = GSON.fromJson(response.body(), User.class);
+        return response.body();
+
+    }
+
+    public static User getRequest(URI uri) throws Exception {
+        HttpRequest getRequest = HttpRequest.newBuilder()
+                .uri(uri)
+                .build();
+        HttpResponse<String> getResponse = CLIENT.send(getRequest, HttpResponse.BodyHandlers.ofString());
+        return GSON.fromJson(getResponse.body(), User.class);
     }
 
     public static User sendPost(URI uri, User user) throws IOException, InterruptedException {
@@ -32,7 +68,7 @@ public class HttpUtil {
                 .build();
         final HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println("Status of POST: " + response.statusCode());
-        System.out.println("Body of POST : "+response.body());
+        System.out.println("Body of POST : " + response.body());
         return GSON.fromJson(response.body(), User.class);
     }
 
@@ -46,18 +82,19 @@ public class HttpUtil {
         System.out.println(response.body());
     }
 
-    public static void deleteUser(URI uri,User user) throws IOException, InterruptedException {
+    public static void deleteUser(URI uri, User user) throws IOException, InterruptedException {
         String requestBody = GSON.toJson(user);
         HttpRequest deleteRequest = HttpRequest.newBuilder()
                 .uri(uri)
                 .header("Content-type", "application/json;charset=UTF-8")
-                .method("DELETE",HttpRequest.BodyPublishers.ofString(requestBody))
+                .method("DELETE", HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
         final HttpResponse<String> deleteResponse = CLIENT.send(deleteRequest, HttpResponse.BodyHandlers.ofString());
-        System.out.println("Body of DELETE: "+deleteResponse.body());
+        System.out.println("Body of DELETE: " + deleteResponse.body());
         System.out.println("Status of DELETE: " + deleteResponse.statusCode());
     }
-    public static void updateUserById(URI uri,User user) throws IOException, InterruptedException {
+
+    public static void updateUserById(URI uri, User user) throws IOException, InterruptedException {
         String requestBody = GSON.toJson(user);
         HttpRequest updateUserById = HttpRequest.newBuilder()
                 .uri(uri)
@@ -65,7 +102,7 @@ public class HttpUtil {
                 .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
         final HttpResponse<String> deleteResponse = CLIENT.send(updateUserById, HttpResponse.BodyHandlers.ofString());
-        System.out.println("Body of PUT: "+deleteResponse.body());
+        System.out.println("Body of PUT: " + deleteResponse.body());
         System.out.println("Status of PUT: " + deleteResponse.statusCode());
     }
 
