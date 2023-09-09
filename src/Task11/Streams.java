@@ -3,9 +3,9 @@ package Task11;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
-public class Streamss {
+public class Streams {
     public static void main(String[] args) {
 
         List<String> namesList = Arrays.asList("Maria", "Nikita", "Ivan", "Loki", "Felicia");
